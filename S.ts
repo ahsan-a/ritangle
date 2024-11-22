@@ -36,6 +36,7 @@ function primeFac(n: number) {
 	primes.push(n);
 	return primes;
 }
+const pos = (g: Grid) => `${g.a * 10 + g.b}°${g.c * 10 + g.d}'N ${g.e * 10 + g.f}°${g.g * 10 + g.h}'W n=${g.n}`;
 const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23];
 const squares = [
 	0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400, 441, 484, 529, 576, 625, 676, 729, 784, 841, 900, 961,
@@ -57,9 +58,9 @@ for (let a = 2; a <= 5; a++) for (let b = 0; b <= 9; b++) for (let c = 0; c <= 6
    const gr: Grid = { a, b, c, d, e, f, g, h, n };
 
 	if (!tri.includes(threeac(gr) + fourdn(gr))) continue;
-	if (twodn(gr) !== d*10 + n) continue;
+	if (b !== d) continue;
 	if (fiveac(gr) !== onedn(gr) + threeac(gr) + fourdn(gr)) continue;
 	if (primeFac(oneac(gr)).length ===1 )continue;
-   console.log(gr);
+   console.log(pos(gr));
    
 }

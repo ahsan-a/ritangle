@@ -15,6 +15,8 @@ const squares = [
 	0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400, 441, 484, 529, 576, 625, 676, 729, 784, 841, 900, 961,
 ];
 
+const pos = (g: Grid) => `${g.a * 10 + g.b}°${g.c * 10 + g.d}'N ${g.e * 10 + g.f}°${g.g * 10 + g.h}'W n=${g.n}`;
+
 const onedn = (g: Grid) => g.a * 100 + g.h * 10 + g.g;
 const twodn = (g: Grid) => g.b * 10 + g.n;
 const threeac = (g: Grid) => g.n * 10 + g.d;
@@ -30,6 +32,6 @@ for (let a = 2; a <= 5; a++) for (let b = 0; b <= 9; b++) for (let c = 0; c <= 6
    if (threeac(gr) !== fourdn(gr) - d - e) continue;
    if (!primes.includes(g+f+e)) continue;
 
-   console.log(gr);
+   console.log(pos(gr));
    
 }
