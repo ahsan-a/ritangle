@@ -1,4 +1,22 @@
-import { Coord, Tri, happy, lucky, cube, getDigits, permute, lucas, cullen, divdiv, primeFac, primes, harshad, squares } from './utils.ts';
+import {
+	Coord,
+	Tri,
+	happy,
+	lucky,
+	cube,
+	getDigits,
+	permute,
+	lucas,
+	cullen,
+	divdiv,
+	primeFac,
+	primes,
+	harshad,
+	squares,
+	triangular,
+	fibonacci,
+	divisors,
+} from './utils.ts';
 
 const _nonZero = [
 	[0, 0],
@@ -221,37 +239,37 @@ class Grid {
 	}
 }
 
-// pt1: all top rows and bottom rows with no repeating digits
-// top: happy, lucky, cube
-const validTop: Tri[] = [];
-for (const h of happy) {
-	for (const l of lucky) {
-		for (const c of cube) {
-			if (h < 100 || l < 100 || c < 100) continue;
-			if (h > 999 || l > 999 || c > 999) continue;
-			const digits = [...getDigits(h), ...getDigits(l), ...getDigits(c)];
-			if (digits.length === new Set(digits).size) validTop.push([h, l, c]);
-		}
-	}
-}
-
-// const validBottom: Tri[] = [];
-// for (const s of squares) {
-// 	for (const t of triangular) {
-// 		for (const f of fibonacci) {
-// 			if (s < 100 || t < 100 || f < 100) continue;
-// 			if (s > 999 || t > 999 || f > 999) continue;
-
-// 			const digits = [...getDigits(s), ...getDigits(t), ...getDigits(f)];
-// 			if (digits.length !== new Set(digits).size) continue;
-
-// 			validBottom.push([s, t, f]);
+// // pt1: all top rows and bottom rows with no repeating digits
+// // top: happy, lucky, cube
+// const validTop: Tri[] = [];
+// for (const h of happy) {
+// 	for (const l of lucky) {
+// 		for (const c of cube) {
+// 			if (h < 100 || l < 100 || c < 100) continue;
+// 			if (h > 999 || l > 999 || c > 999) continue;
+// 			const digits = [...getDigits(h), ...getDigits(l), ...getDigits(c)];
+// 			if (digits.length === new Set(digits).size) validTop.push([h, l, c]);
 // 		}
 // 	}
 // }
-// console.log(validBottom);
 
-// through inspection:
+// // const validBottom: Tri[] = [];
+// // for (const s of squares) {
+// // 	for (const t of triangular) {
+// // 		for (const f of fibonacci) {
+// // 			if (s < 100 || t < 100 || f < 100) continue;
+// // 			if (s > 999 || t > 999 || f > 999) continue;
+
+// // 			const digits = [...getDigits(s), ...getDigits(t), ...getDigits(f)];
+// // 			if (digits.length !== new Set(digits).size) continue;
+
+// // 			validBottom.push([s, t, f]);
+// // 		}
+// // 	}
+// // }
+// // console.log(validBottom);
+
+// // through inspection:
 // const validBottom = [
 // 	[561, 987, 324],
 // 	[561, 324, 987],
@@ -294,9 +312,9 @@ for (const h of happy) {
 // 											fourteendn: 15,
 // 										});
 
-// 										if (!primes.has(grid.getLine('twodn')) || !primes.has(grid.getLine('sixdn'))) continue BSixteenac;
-// 										if (!harshad.has(grid.getLine('elevendn') - grid.getLine('fivedn'))) continue BSixteenac;
-// 										if (!squares.has(getDigits(grid.getLine('fourdn')).reduce((acc, x) => acc + Math.pow(x, 3)))) continue BSixteenac;
+// 										if (!primes.has(grid.getLine('twodn')) || !primes.has(grid.getLine('sixdn'))) continue BOnedn;
+// 										if (!harshad.has(grid.getLine('elevendn') - grid.getLine('fivedn'))) continue BOnedn;
+// 										if (!squares.has(getDigits(grid.getLine('fourdn')).reduce((acc, x) => acc + Math.pow(x, 3)))) continue BOnedn;
 // 										possible.push(grid);
 // 									} catch (error) {
 // 										const e = error as Error;
@@ -321,9 +339,60 @@ for (const h of happy) {
 // Deno.writeTextFileSync('./valid.json', JSON.stringify(possible));
 // console.log(acc);
 
-const valid: { grid: number[][] }[] = JSON.parse(Deno.readTextFileSync('./valid.json'));
+// const valid: { grid: number[][] }[] = JSON.parse(Deno.readTextFileSync('./valid.json'));
+// const valid2: Grid[] = [];
 
-for (const _base of valid) {
-	const base = new Grid();
-	base.setGrid = _base.grid;
-}
+// for (const _base of valid) {
+// 	const base = new Grid();
+// 	base.setGrid = _base.grid;
+// 	const nulls = base.nulls;
+// 	for (let i = 1; i < 10; i++) {
+// 		for (let j = 1; j < 10; j++) {
+// 			for (let k = 1; k < 10; k++) {
+// 				base.yx(nulls[0], i);
+// 				base.yx(nulls[1], j);
+// 				base.yx(nulls[2], k);
+
+// 				if (base.getLine('onedn') - base.getLine('ninedn') !== base.getLine('eightac')) continue;
+// 				if (base.getLine('eighteendn') - base.getLine('thirteendn') !== base.getLine('seventeenac')) continue;
+// 				valid2.push(JSON.parse(JSON.stringify(base.grid)));
+// 			}
+// 		}
+// 	}
+// }
+
+// Deno.writeTextFileSync('./valid2.json', JSON.stringify(valid2));
+
+// // hmmmm
+// const valid2: { grid: number[][] }[] = JSON.parse(Deno.readTextFileSync('./valid.json'));
+
+// for (const _base of valid2) {
+// 	const base = new Grid();
+// 	base.setGrid = _base.grid;
+
+// 	let topValid = 0;
+// 	for (const x of [base.getLine('oneac'), base.getLine('threeac'), base.getLine('sixac')]) {
+// 		if (happy.has(x)) topValid++;
+// 		if (lucky.has(x)) topValid++;
+// 		if (cube.has(x)) topValid++;
+// 	}
+// 	if (topValid !== 3) continue;
+
+// 	// if (base.getLine('onedn') - base.getLine('ninedn') !== base.getLine('eightac')) continue;
+
+// 	const tenac = base.getLine('tenac');
+// 	const tenacDiv = divisors(tenac);
+// 	if (!new Set(tenacDiv).has(tenacDiv.length)) continue;
+
+// 	if (!lucas.has(base.getLine('twelveac'))) continue;
+
+// 	if (!cullen.has(base.getLine('fifteenac'))) continue;
+
+// 	const sixteenac = base.getLine('sixteenac');
+// 	const sixteenacDiv = divisors(sixteenac);
+// 	if (!new Set(sixteenacDiv).has(sixteenacDiv.length)) continue;
+
+// 	// if (base.getLine('eighteendn') - base.getLine('thirteendn') !== base.getLine('seventeenac')) continue;
+
+// 	console.log('hi');
+// }
