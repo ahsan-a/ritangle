@@ -50,7 +50,7 @@ const nonZero = [
 function permute<T>(inputArr: T[]) {
 	let results: T[][] = [];
 
-	function permute(arr: T[], memo: T[] = []) {
+	function permutation(arr: T[], memo: T[] = []) {
 		let cur: T[];
 
 		for (var i = 0; i < arr.length; i++) {
@@ -58,14 +58,14 @@ function permute<T>(inputArr: T[]) {
 			if (arr.length === 0) {
 				results.push(memo.concat(cur));
 			}
-			permute(arr.slice(), memo.concat(cur));
+			permutation(arr.slice(), memo.concat(cur));
 			arr.splice(i, 0, cur[0]);
 		}
 
 		return results;
 	}
 
-	return permute(inputArr);
+	return permutation(inputArr);
 }
 
 // For actual grid
@@ -153,7 +153,7 @@ const lines: Record<LineName, LineRef> = {
 };
 
 class Grid {
-	grid: number[][] = new Array(4).fill(new Array(6));
+	grid: number[][] = new Array(4).fill(new Array(6).fill(0));
 	constructor(input: Partial<Record<LineName, number>> = {}) {
 		for (const lineName in input) {
 			this.setLine(lineName as LineName, input[lineName]);
@@ -262,19 +262,22 @@ main: for (const top of permute(topRow))
 				for (const three of permute(_three.slice(1)).map((x) => [_three[0], ...x])) {
 					for (const _four of primThree)
 						for (const four of permute(_four.slice(1)).map((x) => [_four[0], ...x])) {
+							// const grid = new Grid({
+							// 	oneac: top[0],
+							// 	twoac: top[1],
+							// 	fourac: top[2],
+							// 	elevenac: two[0],
+							// 	tendn: two[1],
+							// 	twelvedn: two[2],
+							// 	onedn: three[0],
+							// 	thirteenac: three[1],
+							// 	sevendn: three[2],
+							// 	fivedn: four[0],
+							// 	fourteenac: four[1],
+							// 	ninedn: four[2],
+							// });
 							const grid = new Grid({
-								oneac: top[0],
-								twoac: top[1],
-								fourac: top[2],
-								elevenac: two[0],
-								tendn: two[1],
-								twelvedn: two[2],
-								onedn: three[0],
-								thirteenac: three[1],
-								sevendn: three[2],
-								fivedn: four[0],
-								fourteenac: four[1],
-								ninedn: four[2],
+								oneac: 12,
 							});
 							grid.output();
 							break main;
