@@ -12,27 +12,16 @@ interface Grid {
 
 function primeFac(n: number) {
 	const primes: number[] = [];
-	// Print the number of 2s that divide n
 	while (n % 2 == 0) {
 		primes.push(2);
 		n = Math.floor(n / 2);
 	}
-
-	// n must be odd at this point.
-	// So we can skip one element
-	// (Note i = i +2)
 	for (let i = 3; i <= Math.floor(Math.sqrt(n)); i = i + 2) {
-		// While i divides n, print i
-		// and divide n
 		while (n % i == 0) {
 			primes.push(i);
 			n = Math.floor(n / i);
 		}
 	}
-
-	// This condition is to handle the
-	// case when n is a prime number
-	// greater than 2
 	primes.push(n);
 	return primes;
 }
@@ -61,6 +50,9 @@ for (let a = 2; a <= 5; a++) for (let b = 0; b <= 9; b++) for (let c = 0; c <= 6
 	if (b !== d) continue;
 	if (fiveac(gr) !== onedn(gr) + threeac(gr) + fourdn(gr)) continue;
 	if (primeFac(oneac(gr)).length ===1 )continue;
+
+	if (onedn(gr) !== Math.pow(a+b+c, 2) + threeac(gr)) continue;
+	if (!tri.includes(fourdn(gr))) continue;
    console.log(pos(gr));
    
 }

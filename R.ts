@@ -13,6 +13,7 @@ interface Grid {
 const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23];
 const squares = [
 	0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400, 441, 484, 529, 576, 625, 676, 729, 784, 841, 900, 961,
+	1024,
 ];
 
 const pos = (g: Grid) => `${g.a * 10 + g.b}°${g.c * 10 + g.d}'N ${g.e * 10 + g.f}°${g.g * 10 + g.h}'W n=${g.n}`;
@@ -31,6 +32,8 @@ for (let a = 2; a <= 5; a++) for (let b = 0; b <= 9; b++) for (let c = 0; c <= 6
    if (!squares.includes(fiveac(gr) - fourdn(gr))) continue;
    if (threeac(gr) !== fourdn(gr) - d - e) continue;
    if (!primes.includes(g+f+e)) continue;
+
+	if (a+h+g !== b+n) continue;
 
    console.log(pos(gr));
    
